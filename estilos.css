@@ -1,173 +1,605 @@
-/* -------------------------------------------------
-   FUENTES Y VARIABLES
-------------------------------------------------- */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
-
-/*Variabes globales para el CSS que se pueden re utilizar más abajo*/
+/* Variables CSS para una gestión más sencilla de colores y fuentes */
 :root {
-  --bg: #f5f7fa;
-  --card-bg: #ffffff;
-  --primary: #0066ff;
-  --primary-light: #e5efff; 
-  --text: #333333;
-  --s-text: #666666; 
-  --radius: 12px;
-  --shadow: 0 4px 12px rgba(0, 0, 0, 0.08); 
-  --transition: 0.25s ease; /* Tiempo de transición para efectos hover */
+    --color-dark-background: #1a1a1a; /* Fondo muy oscuro */
+    --color-dark-secondary: #2c2c2c; /* Fondo secundario, un poco más claro */
+    --color-dark-tertiary: #3a3a3a; /* Fondo de tarjetas, etc. */
+    --color-text-light: #f0f0f0; /* Texto principal claro */
+    --color-text-medium: #b0b0b0; /* Texto secundario, descripciones */
+    --color-accent: #61dafb; /* Color de acento, un azul cian claro, típico de React */
+    --color-accent-dark: #21a1f1; /* Una versión más oscura del acento */
+    --color-border: #444; /* Borde sutil */
+    --font-primary: 'Roboto', sans-serif; /* Fuente principal */
+    --spacing-unit: 1.5rem;
 }
 
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+/* Reset básico y estilos generales */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 body {
-  font-family: 'Poppins', sans-serif;
-  background: var(--bg);
-  color: var(--text);
-  line-height: 1.6;
-  padding: 2rem 1rem;
+    font-family: var(--font-primary);
+    line-height: 1.6;
+    color: var(--color-text-light);
+    background-color: var(--color-dark-background);
+    scroll-behavior: smooth;
 }
 
-/* -------------------------------------------------
-   PERFIL
-------------------------------------------------- */
+a {
+    color: var(--color-accent);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: var(--color-accent-dark);
+}
+
+ul {
+    list-style: none;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+h1, h2, h3 {
+    color: var(--color-text-light);
+    margin-bottom: var(--spacing-unit);
+    font-weight: 700;
+}
+
+h1 { font-size: 3rem; }
+h2 { font-size: 2.2rem; }
+h3 { font-size: 1.7rem; }
+
+p {
+    margin-bottom: 1rem;
+    color: var(--color-text-medium);
+}
+
+.content-section {
+    padding: 4rem var(--spacing-unit);
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* --- Header y Navegación --- */
+.header {
+    background-color: var(--color-dark-secondary);
+    padding: 1rem var(--spacing-unit);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.logo {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--color-accent);
+}
+
+.nav-links {
+    display: flex;
+    gap: 2rem;
+}
+
+.nav-links li a {
+    color: var(--color-text-light);
+    font-size: 1.1rem;
+    padding: 0.5rem 0;
+    position: relative;
+}
+
+.nav-links li a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: var(--color-accent);
+    transition: width 0.3s ease-in-out;
+}
+
+.nav-links li a:hover::after {
+    width: 100%;
+}
+
+/* --- Sección Hero / Perfil --- */
+.hero-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 6rem var(--spacing-unit);
+    background: linear-gradient(135deg, var(--color-dark-background) 0%, var(--color-dark-secondary) 100%);
+    min-height: 80vh; /* Ajusta la altura para que ocupe gran parte de la pantalla */
+    text-align: center;
+    flex-wrap: wrap; /* Permite que los elementos se envuelvan en pantallas pequeñas */
+}
+
 .perfil {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 2rem; /* Espacio entre imagen y texto */
-  background: var(--card-bg);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
-  padding: 1.5rem 2rem;
-  margin-bottom: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2.5rem;
+    max-width: 900px;
 }
 
-.perfil img {
-  width: 160px;
-  height: 160px;
-  object-fit: cover; /* Asegura que la imagen se ajuste al contenedor */
-  border-radius: 50%;
-  border: 4px solid var(--primary-light);
+.profile-pic {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid var(--color-accent);
+    box-shadow: 0 0 20px rgba(97, 218, 251, 0.4);
+    transition: transform 0.3s ease;
+}
+
+.profile-pic:hover {
+    transform: scale(1.05);
 }
 
 .info_perfil h1 {
-  font-size: 2rem;
-  margin-bottom: 0.25rem;
-  color: var(--primary);
+    font-size: 4rem;
+    margin-bottom: 0.5rem;
+    background: linear-gradient(90deg, var(--color-accent), var(--color-accent-dark));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 .info_perfil h2 {
-  font-size: 1.25rem;
-  font-weight: 600;
-  margin-bottom: 0.75rem;
+    font-size: 2.5rem;
+    color: var(--color-text-medium);
+    margin-bottom: 1rem;
+    font-weight: 400;
 }
 
 .info_perfil p {
-  max-width: 600px;
+    font-size: 1.2rem;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.8;
 }
 
-/* -------------------------------------------------
-   HABILIDADES
-------------------------------------------------- */
+.social-links {
+    margin-top: 1.5rem;
+    display: flex;
+    /* Inicio de los nuevos estilos para social-links */
+    flex-wrap: wrap; /* Permite que los elementos se envuelvan si no caben en una línea */
+    justify-content: center; /* Centra los elementos */
+    gap: 1.5rem; /* Espacio entre los elementos sociales y el botón */
+    /* Fin de los nuevos estilos para social-links */
+}
+
+.social-links a {
+    font-size: 2.2rem;
+    color: var(--color-text-light);
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.social-links a:hover {
+    color: var(--color-accent);
+    transform: translateY(-5px);
+}
+
+/* --- Sección Sobre Mí --- */
+.about-section {
+    background-color: var(--color-dark-secondary);
+    border-top: 1px solid var(--color-border);
+}
+
+.about-content {
+    font-size: 1.1rem;
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: justify;
+}
+
+.about-content p strong {
+    color: var(--color-accent);
+}
+
+/* --- Sección Habilidades --- */
+.skills-section {
+    background-color: var(--color-dark-background);
+    border-top: 1px solid var(--color-border);
+}
+
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
 .habilidades {
-  background: var(--card-bg);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
-  padding: 1.5rem 2rem;
-  margin-bottom: 2.5rem;
+    background-color: var(--color-dark-tertiary);
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.habilidades:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
 }
 
 .habilidades h3 {
-  margin-bottom: 0.75rem;
-  color: var(--primary);
+    color: var(--color-accent);
+    margin-bottom: 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
 }
 
-.habilidades ul {
-  list-style: none; /* Elimina los puntos de la lista */
-  columns: 2;
-  column-gap: 2rem; /* Espacio entre columnas */
-  margin-bottom: 1.5rem;
+.habilidades ul li {
+    font-size: 1.1rem;
+    margin-bottom: 0.8rem;
+    color: var(--color-text-light);
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
 }
 
-.habilidades li {
-  position: relative; /* Para posicionar el punto */
-  padding-left: 1.25rem;
-  margin-bottom: 0.5rem;
-  font-weight: 500;
+.habilidades ul li i {
+    color: var(--color-accent);
+    font-size: 1.2em;
 }
 
-.habilidades li::before {
-  content: '●';  /* Punto antes del texto */
-  position: absolute;
-  left: 0; /* Alinea el punto a la izquierda */
-  top: 0; /* Alinea el punto verticalmente */
-  color: var(--primary);
-  font-size: 0.75rem;
+/* --- Sección Proyectos --- */
+.projects-section {
+    background-color: var(--color-dark-secondary);
+    border-top: 1px solid var(--color-border);
 }
 
-/* -------------------------------------------------
-   PROYECTOS
-------------------------------------------------- */
-.proyectos {
-  display: grid; /* Utiliza grid para organizar las tarjetas */
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); /* Crea columnas responsivas */
-  gap: 2rem; /* Espacio entre tarjetas */
+.proyectos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2.5rem;
+    margin-top: 2.5rem;
 }
 
-.tarjeta {
-  background: var(--card-bg);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
-  overflow: hidden; /* Asegura que el contenido no se desborde */
-  transition: transform var(--transition), box-shadow var(--transition); /* Añade transición para hover */
+.proyecto-card {
+    background-color: var(--color-dark-tertiary);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.tarjeta:hover {
-  transform: translateY(-6px); /* Eleva la tarjeta al pasar el mouse */ 
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12); 
+.proyecto-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+}
+
+.imagen-proyecto {
+    height: 250px; /* Altura fija para las imágenes */
+    overflow: hidden;
 }
 
 .imagen-proyecto img {
-  display: block;
-  width: 100%;
-  height: 200px;
-  object-fit: cover; /* Asegura que la imagen cubra el área */
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.proyecto-card:hover .imagen-proyecto img {
+    transform: scale(1.08);
 }
 
 .detalle-proyecto {
-  padding: 1rem 1.25rem 1.5rem; /* Espacio interno para el contenido */
+    padding: 1.8rem;
 }
 
 .detalle-proyecto h3 {
-  margin-bottom: 0.5rem;
-  color: var(--primary);
+    margin-top: 0;
+    font-size: 1.8rem;
+    color: var(--color-accent);
+    margin-bottom: 0.8rem;
 }
 
 .detalle-proyecto p {
-  color: var(--s-text);
-  font-size: 0.95rem;
+    font-size: 1rem;
+    color: var(--color-text-medium);
+    margin-bottom: 1.5rem;
 }
 
-/* -------------------------------------------------
-   RESPONSIVE AJUSTES
-------------------------------------------------- */
-@media (max-width: 576px) { /* Ajustes para pantallas pequeñas */
-  .perfil {
+.project-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+    margin-bottom: 1.5rem;
+}
+
+.project-tags span {
+    background-color: var(--color-dark-background);
+    color: var(--color-accent);
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.project-links {
+    display: flex;
+    gap: 1.2rem;
+    flex-wrap: wrap;
+}
+
+.btn-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background-color: var(--color-accent);
+    color: var(--color-dark-background);
+    padding: 0.8rem 1.5rem;
+    border-radius: 5px;
+    font-weight: 600;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-link:hover {
+    background-color: var(--color-accent-dark);
+    transform: translateY(-3px);
+    color: var(--color-text-light);
+}
+
+.btn-link i {
+    font-size: 1.1em;
+}
+
+/* --- Sección Contacto --- */
+.contact-section {
+    background-color: var(--color-dark-background);
+    border-top: 1px solid var(--color-border);
     text-align: center;
+}
+
+.contact-section p {
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.contact-form {
+    max-width: 600px;
+    margin: 0 auto 3rem auto;
+    background-color: var(--color-dark-secondary);
+    padding: 2.5rem;
+    border-radius: 8px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+    text-align: left;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.7rem;
+    font-weight: 600;
+    color: var(--color-text-light);
+    font-size: 1.1rem;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 1rem;
+    background-color: var(--color-dark-tertiary);
+    border: 1px solid var(--color-border);
+    border-radius: 5px;
+    color: var(--color-text-light);
+    font-family: var(--font-primary);
+    font-size: 1rem;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--color-accent);
+    box-shadow: 0 0 0 3px rgba(97, 218, 251, 0.3);
+}
+
+.btn-submit {
+    background-color: var(--color-accent);
+    color: var(--color-dark-background);
+    padding: 1rem 2.5rem;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-submit:hover {
+    background-color: var(--color-accent-dark);
+    transform: translateY(-3px);
+    color: var(--color-text-light);
+}
+
+.contact-info {
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    font-size: 1.1rem;
+}
+
+.contact-info p {
+    margin-bottom: 0;
+    display: flex;
+    align-items: center;
     justify-content: center;
-  }
+    gap: 0.8rem;
+    color: var(--color-text-medium);
+}
 
-  .perfil img {
-    width: 120px;
-    height: 120px;
-  }
+.contact-info p i {
+    color: var(--color-accent);
+    font-size: 1.2em;
+}
 
-  .info_perfil h1 {
+.contact-info p a {
+    color: var(--color-text-light);
+}
+
+/* --- Footer --- */
+.footer {
+    background-color: var(--color-dark-secondary);
+    padding: 1.5rem var(--spacing-unit);
+    text-align: center;
+    font-size: 0.9rem;
+    color: var(--color-text-medium);
+    border-top: 1px solid var(--color-border);
+}
+
+.footer-social-links {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+}
+
+.footer-social-links a {
+    color: var(--color-text-medium);
     font-size: 1.5rem;
-  }
+    transition: color 0.3s ease;
+}
+
+.footer-social-links a:hover {
+    color: var(--color-accent);
+}
+
+/* --- Estilos para el botón de Descargar CV (NUEVO) --- */
+.btn-download-cv {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.8rem; /* Espacio entre el icono y el texto */
+    background-color: var(--color-accent); /* Usa el color de acento */
+    color: var(--color-dark-background); /* Texto oscuro sobre el acento */
+    padding: 0.8rem 1.5rem;
+    border-radius: 8px; /* Bordes redondeados */
+    font-weight: 600;
+    font-size: 1.1rem;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Sutil sombra */
+}
+
+.btn-download-cv:hover {
+    background-color: var(--color-accent-dark); /* Color de acento más oscuro al pasar el ratón */
+    transform: translateY(-5px); /* Efecto de "levantamiento" */
+    color: var(--color-text-light); /* Cambia el color del texto a claro al pasar el ratón */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+}
+
+.btn-download-cv i {
+    font-size: 1.3rem; /* Tamaño del icono */
+}
+
+/* --- Media Queries para Responsive Design --- */
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        gap: 1rem; /* Espacio entre logo y enlaces */
+    }
+
+    .nav-links {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 1rem; /* Espacio entre enlaces */
+    }
+
+    .hero-section {
+        padding: 4rem var(--spacing-unit);
+        text-align: center;
+    }
+
+    .info_perfil h1 {
+        font-size: 3rem;
+    }
+
+    .info_perfil h2 {
+        font-size: 1.8rem;
+    }
+
+    .perfil {
+        flex-direction: column; /* Alinear elementos verticalmente */
+    }
+
+    .skills-grid {
+        grid-template-columns: 1fr; /* Una columna en móviles */
+    }
+
+    .proyectos-grid {
+        grid-template-columns: 1fr; /* Una columna en móviles */
+    }
+
+    .content-section {
+        padding: 3rem 1rem;
+    }
+
+    .detalle-proyecto h3 {
+        font-size: 1.5rem;
+    }
+
+    .btn-link {
+        width: 100%; /* Botones de proyecto ocupan todo el ancho */
+        justify-content: center; /* Centrar contenido del botón */
+    }
+
+    /* Asegura que el botón de CV también se adapte bien en móviles */
+    .btn-download-cv {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .contact-form {
+        padding: 1.5rem; 
+    }
+}
+
+@media (max-width: 480px) {
+    .logo {
+        font-size: 1.5rem; 
+    }
+
+    .nav-links li a {
+        font-size: 1rem;
+    }
+
+    .info_perfil h1 {
+        font-size: 2.5rem;
+    }
+
+    .info_perfil h2 {
+        font-size: 1.5rem;
+    }
+
+    .profile-pic {
+        width: 150px;
+        height: 150px;
+    }
 }
