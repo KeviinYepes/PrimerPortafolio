@@ -5,8 +5,8 @@
     --color-dark-tertiary: #3a3a3a; /* Fondo de tarjetas, etc. */
     --color-text-light: #f0f0f0; /* Texto principal claro */
     --color-text-medium: #b0b0b0; /* Texto secundario, descripciones */
-    --color-accent: #61dafb; /* Color de acento, un azul cian claro, típico de React */
-    --color-accent-dark: #21a1f1; /* Una versión más oscura del acento */
+    --color-accent: #6ab8e9; /* Color de acento, un azul cian claro, típico de React */
+    --color-accent-dark: #072131; /* Una versión más oscura del acento */
     --color-border: #444; /* Borde sutil */
     --font-primary: 'Roboto', sans-serif; /* Fuente principal */
     --spacing-unit: 1.5rem;
